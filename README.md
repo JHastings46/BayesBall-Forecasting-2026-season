@@ -1,10 +1,13 @@
-# BayesBall: Bayesian Forecasting of Baseball Player Rates 2026 Season
+
+# BayesBall: Bayesian Forecasting of Baseball Player Rates
 
 A Bayesian model that estimates each MLB hitter's **true** home run rate and strikeout
 rate — correcting for small-sample noise — and forecasts their expected output over a
 future window, with honest uncertainty around every number.
 
 **By Joel Hastings**
+
+**Live dashboard:** https://public.tableau.com/app/profile/joel.hastings/viz/2026MLBPlayerForecastingBayesian/Dashboard1
 
 ---
 
@@ -23,7 +26,7 @@ For every player, the model produces three things:
 - **A forecast** of expected events over the next 200 plate appearances, with a
   realistic low-to-high range
 
-The result is a decision-ready table and a set of charts that rank players *while
+The result is a decision ready table and a set of charts that rank players *while
 showing how much to trust each ranking* — the difference between a list and a tool.
 
 ---
@@ -34,7 +37,7 @@ The model assumes every player's rate is drawn from a shared, league-wide distri
 whose shape is learned from the data. This creates **shrinkage**: players with few
 plate appearances get pulled toward the league average (the model distrusts their small
 sample), while players with a full season of data stand on their own. Genuine outliers
-still stand out as evidence accumulates — but hot streaks in tiny samples get discounted
+still stand out as evidence accumulates, but hot streaks in tiny samples get discounted
 automatically. This is what stops the model from overreacting to noise.
 
 ---
