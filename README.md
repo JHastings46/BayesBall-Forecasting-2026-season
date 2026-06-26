@@ -1,48 +1,92 @@
+# BayesBall: MLB Player Forecasting System — 2026 Season
 
-# BayesBall: Bayesian Forecasting of Baseball Player Rates
+![Python](https://img.shields.io/badge/Python-3.11-blue)
+![PyMC](https://img.shields.io/badge/PyMC-Bayesian-orange)
+![Status](https://img.shields.io/badge/Status-Live-green)
 
-A Bayesian model that estimates each MLB hitter's **true** home run rate and strikeout
-rate — correcting for small-sample noise — and forecasts their expected output over a
-future window, with honest uncertainty around every number.
+## What This Does for a Front Office
 
-**By Joel Hastings**
+Small samples mislead. A hitter with 6 home runs in his first 
+60 plate appearances looks elite on a leaderboard. He probably 
+isn't. This system separates real skill from noise and tells 
+you how confident to be in every number it produces.
 
-**Live dashboard:** https://public.tableau.com/app/profile/joel.hastings/viz/2026MLBPlayerForecastingBayesian/Dashboard1
+Built for roster construction, waiver wire decisions, and 
+contract evaluation where acting on a hot streak costs 
+real money.
 
----
-
-## What problem this solves
-
-Raw baseball stats lie in small samples. A hitter who homers 6 times in his first 60
-plate appearances looks elite, but it may be luck. A naive ranking would put him above
-proven sluggers. This project fixes that: it estimates each player's *underlying* skill
-rather than trusting their noisy raw rate, and reports how confident it is in each
-estimate.
-
-For every player, the model produces three things:
-
-- **A best estimate** of their true rate (e.g. true HR per plate appearance)
-- **A 90% credible interval** — the honest range the true rate likely falls in
-- **A forecast** of expected events over the next 200 plate appearances, with a
-  realistic low-to-high range
-
-The result is a decision ready table and a set of charts that rank players *while
-showing how much to trust each ranking* — the difference between a list and a tool.
+📊 **[View Live Dashboard](https://public.tableau.com/app/profile/joel.hastings/viz/2026MLBPlayerForecastingBayesian/Dashboard1)**
 
 ---
 
-## The core idea: partial pooling (shrinkage)
+## The Problem It Solves
 
-The model assumes every player's rate is drawn from a shared, league-wide distribution
-whose shape is learned from the data. This creates **shrinkage**: players with few
-plate appearances get pulled toward the league average (the model distrusts their small
-sample), while players with a full season of data stand on their own. Genuine outliers
-still stand out as evidence accumulates, but hot streaks in tiny samples get discounted
-automatically. This is what stops the model from overreacting to noise.
+Every front office deals with the same question: is this 
+player's performance real or is it a small sample illusion?
+
+Raw stats don't answer that. This system does. It estimates 
+each player's underlying skill level, not just what they've 
+done, and reports an honest confidence range around every 
+projection. You get a ranking you can act on, not just a 
+leaderboard that rewards luck.
 
 ---
 
-## Tech stack
+## What the Model Produces for Every Player
 
-**Python** (PyMC, ArviZ, pandas, NumPy, matplotlib) for the Bayesian model and
-forecasting · **Tableau Public** for the interactive dashboard.
+**True rate estimate** — the player's most likely actual 
+skill level for HR rate and strikeout rate, corrected for 
+sample size
+
+**90% credible interval** — the honest range the true rate 
+falls in. Wide interval means low confidence. Narrow means 
+the signal is real.
+
+**200 plate appearance forecast** — expected output over 
+the next window with a realistic low-to-high range for 
+planning purposes
+
+---
+
+## The Key Insight
+
+Players with small samples get pulled toward league average 
+automatically. Players with a full season of evidence stand 
+on their own numbers. Genuine breakouts still surface. 
+Hot streaks in 40 plate appearances get discounted.
+
+This is the same logic a seasoned scout applies 
+instinctively. The model applies it consistently across 
+all 347 players with no exceptions and no gut-feel bias.
+
+---
+
+## Front Office Applications
+
+**Waiver wire targeting:** Identify players whose raw stats 
+understate their true skill because of sample size. Pick 
+them up before the market catches on.
+
+**Contract evaluation:** Know whether a career year is 
+a real shift in skill or a reversion waiting to happen 
+before you commit money to it.
+
+**Platoon and lineup decisions:** Build decisions around 
+true rate estimates rather than recent performance windows 
+that may not hold.
+
+---
+
+## Tech Stack
+
+Python (PyMC, ArviZ, pandas, NumPy, matplotlib) for 
+Bayesian modeling and forecasting. Tableau Public for 
+the interactive dashboard. 347 MLB hitters analyzed 
+for the 2026 season.
+
+---
+
+## Author
+
+Joel Hastings — M.S. Data Science, University of Colorado Boulder  
+[LinkedIn](https://www.linkedin.com/in/joel-hastings-976bb855) | [Portfolio](https://github.com/JHastings46)
